@@ -1,16 +1,8 @@
 <div align="center">
 
-```
-██████╗ ███████╗██╗   ██╗ ██████╗ ██████╗ ███████╗      ██████╗██╗     ██╗
-██╔══██╗██╔════╝██║   ██║██╔═══██╗██╔══██╗██╔════╝     ██╔════╝██║     ██║
-██║  ██║█████╗  ██║   ██║██║   ██║██████╔╝███████╗     ██║     ██║     ██║
-██║  ██║██╔══╝  ╚██╗ ██╔╝██║   ██║██╔═══╝ ╚════██║     ██║     ██║     ██║
-██████╔╝███████╗ ╚████╔╝ ╚██████╔╝██║     ███████║     ╚██████╗███████╗██║
-╚═════╝ ╚══════╝  ╚═══╝   ╚═════╝ ╚═╝     ╚══════╝      ╚═════╝╚══════╝╚═╝
-```
+# DevOps Automation CLI
 
-### 🛠️ A professional command-line tool that automates developer workflows
-### Built from scratch in Python — system monitoring, log analysis, config management & more
+### A command-line tool that automates developer workflows — system monitoring, log analysis, config management, and subprocess automation
 
 <br>
 
@@ -18,71 +10,70 @@
 ![pytest](https://img.shields.io/badge/pytest-passing-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Complete-success?style=for-the-badge)
 
 </div>
 
 ---
 
-## 📌 What Is This?
+## Overview
 
-**DevOps CLI** is a command-line automation tool that replaces repetitive terminal work with clean, structured commands. Instead of manually running scripts, checking system resources, or hunting through log files — this tool does it all in one place.
+**DevOps CLI** is a command-line automation tool that replaces repetitive terminal work with clean, structured commands. Instead of manually running scripts, checking system resources, or hunting through log files — this tool handles it all through a single unified interface.
 
-This is **Project 1** of my Python learning journey — built step by step to master Python fundamentals, standard library modules, and real-world CLI development patterns.
+Built from scratch in Python using only the standard library and a small set of well-chosen third-party packages. Every module is intentionally structured to demonstrate clean separation of concerns, robust error handling, and professional code organisation.
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ```bash
-# 1. Clone the repo
+# Clone the repository
 git clone https://github.com/CaptainAni187/DEVOPS-CLI.git
 cd DEVOPS-CLI
 
-# 2. Create and activate virtual environment
+# Create and activate a virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
-# 3. Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# 4. Run your first command
+# Run your first command
 python3 cli/main.py status
 ```
 
 ---
 
-## 🖥️ Commands
+## Commands
 
 ```
 python3 cli/main.py <command> [options]
 ```
 
-| Command | Options | What it does |
+| Command | Options | Description |
 |---|---|---|
-| `init` | — | Creates `logs/` `backups/` `temp/` `data/` folders |
-| `status` | — | Project config + live CPU / RAM / Disk snapshot |
-| `monitor` | `-n N` `--parallel` | Live system resource monitoring |
-| `run` | `<cmd> [args]` | Run any shell command and capture output |
-| `backup` | `[file]` | Backup a file with a timestamp in the name |
-| `analyze-logs` | `[file]` | Parse log file — count ERROR / WARNING / INFO |
-| `env` | — | Show `.env` variables (secrets auto-redacted) |
+| `init` | — | Creates `logs/` `backups/` `temp/` `data/` directories |
+| `status` | — | Displays project config and a live system snapshot |
+| `monitor` | `-n N` `--parallel` | Live CPU / RAM / Disk monitoring |
+| `run` | `<cmd> [args]` | Execute any shell command and capture its output |
+| `backup` | `[file]` | Backup a file with a timestamp appended to the filename |
+| `analyze-logs` | `[file]` | Parse a log file and report ERROR / WARNING / INFO counts |
+| `env` | — | Display `.env` variables with sensitive values redacted |
 
 ---
 
-## 📺 Example Output
+## Example Output
 
 ```
 $ python3 cli/main.py status
 
-── Project Status ────────────────────────
+-- Project Status ----------------------------------------
   Project  : myapp
   Log file : logs/app.log
   Backups  : backups
   Interval : 5s
   Level    : INFO
 
-── System Monitor ────────────────────
+-- System Monitor ----------------------------------------
   Time       : 2026-03-17 10:22:01
   CPU        : 35.0%
   RAM        : 61.4%
@@ -93,7 +84,7 @@ $ python3 cli/main.py status
 ```
 $ python3 cli/main.py analyze-logs
 
-── Log Analysis ──────────────────────
+-- Log Analysis ------------------------------------------
   Total lines : 143
   ERROR       : 3
   WARNING     : 12
@@ -101,14 +92,14 @@ $ python3 cli/main.py analyze-logs
   DEBUG       : 0
 
   Recent Errors (last 5):
-    2026-03-17 10:00:05  ERROR  Failed to connect
-    2026-03-17 10:00:08  ERROR  Command timed out
+    2026-03-17 10:00:05  ERROR  Failed to connect to database
+    2026-03-17 10:00:08  ERROR  Command timed out after 30s
 ```
 
 ```
 $ python3 cli/main.py env
 
-── Environment Variables ──────────────
+-- Environment Variables ---------------------------------
   DATABASE_URL         = ****
   API_KEY              = ****
   ENVIRONMENT          = development
@@ -117,36 +108,36 @@ $ python3 cli/main.py env
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 devops-cli/
 │
 ├── cli/
-│   └── main.py               ← Entry point — argparse, dispatch table
+│   └── main.py               Entry point — argparse subcommands, dispatch table
 │
 ├── core/
-│   ├── config_loader.py      ← Loads config.yaml → Config dataclass
-│   ├── command_runner.py     ← Runs shell commands via subprocess
-│   ├── log_analyzer.py       ← Parses logs with regex + Counter
-│   └── system_monitor.py     ← CPU / RAM / Disk via psutil + threading
+│   ├── config_loader.py      Loads config.yaml into a validated Config dataclass
+│   ├── command_runner.py     Runs shell commands via subprocess, captures output
+│   ├── log_analyzer.py       Parses log files using regex and Counter
+│   └── system_monitor.py     CPU / RAM / Disk stats via psutil with threading
 │
 ├── utils/
-│   ├── logger.py             ← Central logging to file + terminal
-│   ├── helpers.py            ← File backup, dirs, temp workspaces
-│   └── env_manager.py        ← .env loading + secret redaction
+│   ├── logger.py             Central logging to both file and terminal
+│   ├── helpers.py            File backup, directory management, temp workspaces
+│   └── env_manager.py        .env loading and sensitive value redaction
 │
 ├── models/
-│   └── config_model.py       ← Config dataclass + LogLevel enum
+│   └── config_model.py       Config dataclass and LogLevel enum
 │
 ├── data/
-│   └── config.yaml           ← Project configuration
+│   └── config.yaml           Project configuration
 │
 ├── tests/
-│   ├── conftest.py           ← Shared pytest fixtures
-│   └── test_devops.py        ← 38 unit tests
+│   ├── conftest.py           Shared pytest fixtures
+│   └── test_devops.py        38 unit tests covering all modules
 │
-├── .env.example              ← Template for environment variables
+├── .env.example              Environment variable template
 ├── .gitignore
 ├── requirements.txt
 └── README.md
@@ -154,264 +145,28 @@ devops-cli/
 
 ---
 
-## 🧠 What I Learned Building This
+## Dependencies
 
-This project was built to deliberately practice every core Python concept. Here's exactly what each module taught me:
-
----
-
-### 📦 Data Structures & OOP — `models/config_model.py`
-
-```python
-from dataclasses import dataclass
-from enum import Enum
-
-class LogLevel(Enum):
-    INFO = "INFO"
-    ERROR = "ERROR"
-
-@dataclass
-class Config:
-    project_name: str
-    log_level: LogLevel = LogLevel.INFO
-```
-
-| Concept | What I learned |
+| Package | Purpose |
 |---|---|
-| `@dataclass` | Auto-generates `__init__`, `__repr__` — no boilerplate |
-| `Enum` | Named constants that prevent typos — `LogLevel.ERROR` not `"ERORR"` |
-| Type hints | `str`, `int`, `Optional[str]` — documents what functions expect |
-| `__post_init__` | Runs after `__init__` — converts raw strings to enum values |
-
----
-
-### 📂 File Handling & Caching — `core/config_loader.py`
-
-```python
-from functools import lru_cache
-import yaml
-
-@lru_cache(maxsize=1)
-def load_config(path: str = CONFIG_PATH) -> Config:
-    with open(path, "r") as f:
-        raw = yaml.safe_load(f)
-    ...
-```
-
-| Concept | What I learned |
-|---|---|
-| `PyYAML` | Parse `.yaml` files into Python dicts with `yaml.safe_load()` |
-| `pathlib.Path` | OS-safe paths using `/` operator — works on Mac, Linux, Windows |
-| `@lru_cache` | Cache expensive results — file is only read once per session |
-| `with open()` | Context manager — auto-closes files even if an error occurs |
-| Set subtraction | `required_keys - raw.keys()` to find missing config fields |
-
----
-
-### ⚙️ Subprocess & Exception Handling — `core/command_runner.py`
-
-```python
-import subprocess, traceback
-
-try:
-    result = subprocess.run(command, capture_output=True, text=True)
-except subprocess.TimeoutExpired:
-    ...
-except FileNotFoundError:
-    ...
-finally:
-    logger.debug("Command attempt finished")
-```
-
-| Concept | What I learned |
-|---|---|
-| `subprocess.run()` | Run real shell commands — `pytest`, `git`, `docker` — from Python |
-| `capture_output=True` | Capture stdout and stderr as strings instead of printing to terminal |
-| `returncode` | `0` = success, anything else = failure — universal convention |
-| `try/except/finally` | Handle timeout, missing command, and unexpected errors cleanly |
-| `traceback.format_exc()` | Capture full stack trace for debugging without crashing the user |
-| `Optional[str]` | Type hint for values that can be a string or `None` |
-
----
-
-### 🔍 Regex, Generators & Comprehensions — `core/log_analyzer.py`
-
-```python
-import re
-from collections import Counter
-
-LOG_PATTERN = re.compile(r"\b(ERROR|WARNING|INFO|DEBUG)\b")
-
-def stream_log_lines(path):       # Generator — one line at a time
-    with open(path) as f:
-        for line in f:
-            yield line
-
-errors = [line for line in lines if "ERROR" in line]   # List comprehension
-```
-
-| Concept | What I learned |
-|---|---|
-| `re.compile()` | Compile regex once, reuse in loops — faster than inline patterns |
-| `\b(ERROR\|WARNING)\b` | Word boundaries prevent `INFORMATIONAL` matching `INFO` |
-| `match.group(1)` | Extract the captured group from a regex match |
-| `yield` generator | Produces one item at a time — memory-efficient for huge files |
-| `collections.Counter` | Dictionary built for counting — missing keys return `0` not `KeyError` |
-| List comprehension | `[x for x in items if condition]` — filter and transform in one line |
-| Dict comprehension | `{k: v for k, v in pairs}` — build dicts with filtering inline |
-
----
-
-### 🖥️ System Monitoring & Concurrency — `core/system_monitor.py`
-
-```python
-import psutil, threading
-
-def monitor_loop():
-    cpu = psutil.cpu_percent(interval=1)
-    ram = psutil.virtual_memory().percent
-
-t1 = threading.Thread(target=monitor_loop, daemon=True)
-t2 = threading.Thread(target=analyze_logs)
-t1.start(); t2.start()
-t1.join();  t2.join()
-```
-
-| Concept | What I learned |
-|---|---|
-| `psutil` | Read real CPU, RAM, Disk, process count from the OS |
-| `datetime.strftime()` | Format timestamps — `%Y-%m-%d %H:%M:%S` → `2026-03-17 10:22:01` |
-| `threading.Thread` | Run two functions simultaneously in parallel |
-| `t.start()` / `t.join()` | Launch a thread / wait for it to finish |
-| `daemon=True` | Thread dies when main program exits — prevents hanging |
-| Shared dict | Pass a mutable dict into a thread to receive results back |
-
----
-
-### 📝 Logging System — `utils/logger.py`
-
-```python
-import logging
-
-formatter   = logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s")
-file_handler   = logging.FileHandler("logs/app.log")
-stream_handler = logging.StreamHandler(sys.stdout)
-```
-
-| Concept | What I learned |
-|---|---|
-| Log levels | `DEBUG → INFO → WARNING → ERROR` — filter noise by level |
-| `FileHandler` | Write log lines to a persistent file on disk |
-| `StreamHandler` | Write log lines to the terminal simultaneously |
-| `Formatter` | Control the exact shape of each log line |
-| `getLogger(__name__)` | Each module gets its own named logger — inherit root config |
-
----
-
-### 🗂️ File System Automation — `utils/helpers.py`
-
-```python
-import shutil, tempfile
-from pathlib import Path
-
-shutil.copy2(src, dest)          # Copy with metadata preserved
-tmp = tempfile.mkdtemp()         # Safe random temp directory
-Path(dir).rglob("*")             # Walk entire directory tree
-```
-
-| Concept | What I learned |
-|---|---|
-| `Path.mkdir(parents=True)` | Create full folder chain in one call |
-| `shutil.copy2()` | Copy files preserving timestamps and permissions |
-| `tempfile.mkdtemp()` | Create temp folders with random names — never clash |
-| `Path.rglob("*")` | Recursively walk every file in a directory tree |
-| `path.stem` / `path.suffix` | Split `config.yaml` → `config` + `.yaml` |
-
----
-
-### 🔐 Environment Variables — `utils/env_manager.py`
-
-```python
-from dotenv import load_dotenv, dotenv_values
-import os
-
-load_dotenv(".env", override=False)
-value = os.environ.get("API_KEY", "default")
-```
-
-| Concept | What I learned |
-|---|---|
-| `load_dotenv()` | Push `.env` file contents into `os.environ` |
-| `override=False` | Real env variables take priority over `.env` defaults |
-| `dotenv_values()` | Read `.env` as a dict without touching `os.environ` |
-| Secret redaction | Dict comprehension replaces sensitive values with `****` |
-
----
-
-### 🖱️ CLI Interface — `cli/main.py`
-
-```python
-import argparse, sys
-
-sub = parser.add_subparsers(dest="command")
-sub.add_parser("monitor").add_argument("-n", "--count", type=int)
-
-COMMANDS = {
-    "monitor" : cmd_monitor,
-    "backup"  : cmd_backup,
-}
-handler = COMMANDS.get(args.command)
-handler(args)
-```
-
-| Concept | What I learned |
-|---|---|
-| `argparse` subparsers | One tool, multiple sub-commands like `git commit`, `git push` |
-| `action="store_true"` | Boolean flags — present = True, absent = False |
-| `nargs=REMAINDER` | Capture everything after a command as-is |
-| Dispatch table | Dict of `{command: function}` replaces long `if/elif` chains |
-| `sys.path.insert()` | Tell Python where to find modules at runtime |
-| `KeyboardInterrupt` | Catch `Ctrl+C` for a clean exit instead of an ugly traceback |
-| `sys.exit(0/1)` | `0` = success, `1` = error — other programs read this |
-
----
-
-### 🧪 Testing — `tests/test_devops.py`
-
-```python
-import pytest
-from unittest.mock import patch, MagicMock
-
-def test_snapshot_uses_mocked_psutil():
-    with patch("core.system_monitor.psutil") as mock:
-        mock.cpu_percent.return_value = 42.0
-        snap = get_snapshot()
-        assert snap["cpu"] == 42.0
-
-def test_backup_missing_file_raises(tmp_path):
-    with pytest.raises(FileNotFoundError):
-        backup_file("/nonexistent/file.yaml")
-```
-
-| Concept | What I learned |
-|---|---|
-| `pytest` | Test runner — finds and runs any function starting with `test_` |
-| `tmp_path` fixture | Built-in temporary folder — cleaned up after each test |
-| `@pytest.fixture` | Reusable setup shared across multiple tests |
-| `pytest.raises()` | Assert that a specific exception is raised |
-| `patch()` | Replace real functions with fakes during a test |
-| `MagicMock` | Fake object that accepts any method call without crashing |
-| `assert_called_once_with()` | Verify a mock was called with exact arguments |
-
----
-
-## 🧪 Running Tests
+| `psutil` | System resource monitoring — CPU, RAM, Disk, process count |
+| `python-dotenv` | Load `.env` files into environment variables |
+| `PyYAML` | Parse YAML configuration files |
+| `pytest` | Testing framework |
 
 ```bash
-# Run all 38 tests
+pip install -r requirements.txt
+```
+
+---
+
+## Running Tests
+
+```bash
+# Run all 38 tests with verbose output
 pytest tests/ -v
 
-# Run one class of tests
+# Run a specific test class
 pytest tests/ -v -k TestLogAnalyzer
 
 # Run with coverage report
@@ -421,42 +176,303 @@ pytest tests/ -v --cov=. --cov-report=term-missing
 
 ---
 
-## 📚 Dependencies
+## Concepts Covered
 
-```
-psutil          — System resource monitoring (CPU, RAM, Disk)
-python-dotenv   — Load .env files into environment variables  
-PyYAML          — Parse YAML configuration files
-pytest          — Testing framework
-```
-
-Install all:
-```bash
-pip install -r requirements.txt
-```
+This project was built to deliberately practice and demonstrate core Python concepts across every module.
 
 ---
 
-## 🗺️ What's Next
+### Data Structures and OOP — `models/config_model.py`
 
-This project can be extended into more advanced territory:
+```python
+from dataclasses import dataclass
+from enum import Enum
 
-- [ ] `devops schedule` — run commands on a cron-style timer using `sched`
-- [ ] `devops clean` — delete temp files and old backups
-- [ ] `--output json` flag — machine-readable output for scripting
-- [ ] SSH automation using `paramiko` — run commands on remote servers
-- [ ] Docker control commands — `docker build`, `docker ps`, `docker logs`
+class LogLevel(Enum):
+    INFO    = "INFO"
+    ERROR   = "ERROR"
+    WARNING = "WARNING"
+    DEBUG   = "DEBUG"
+
+@dataclass
+class Config:
+    project_name: str
+    log_path:     str
+    backup_dir:   str
+    monitor_interval: int
+    log_level: LogLevel = LogLevel.INFO
+
+    def __post_init__(self):
+        if isinstance(self.log_level, str):
+            self.log_level = LogLevel(self.log_level.upper())
+```
+
+| Concept | Notes |
+|---|---|
+| `@dataclass` | Auto-generates `__init__` and `__repr__` — eliminates boilerplate |
+| `Enum` | Named constants that prevent typos — `LogLevel.ERROR` not `"ERORR"` |
+| Type hints | `str`, `int`, `Optional[str]` — documents function contracts clearly |
+| `__post_init__` | Runs after `__init__` — converts raw strings to enum values automatically |
 
 ---
 
-## 👨‍💻 About
+### File Handling and Caching — `core/config_loader.py`
 
-Built by **[@CaptainAni187](https://github.com/CaptainAni187)** as Project 1 of a structured Python learning path — progressing from fundamentals through intermediate patterns to production-ready code.
+```python
+from functools import lru_cache
+import yaml
+
+@lru_cache(maxsize=1)
+def load_config(path: str = CONFIG_PATH) -> Config:
+    with open(path, "r") as f:
+        raw = yaml.safe_load(f)
+    required = {"project_name", "log_path", "backup_dir", "monitor_interval"}
+    missing = required - raw.keys()
+    if missing:
+        raise KeyError(f"Missing config keys: {missing}")
+    return Config(...)
+```
+
+| Concept | Notes |
+|---|---|
+| `PyYAML` | Parses `.yaml` files into Python dicts with `yaml.safe_load()` |
+| `pathlib.Path` | OS-safe path joining using `/` operator — works across all platforms |
+| `@lru_cache` | Caches the result — config file is read from disk only once per session |
+| `with open()` | Context manager — file is closed automatically even if an error occurs |
+| Set subtraction | `required - raw.keys()` finds missing configuration fields in one operation |
+
+---
+
+### Subprocess and Exception Handling — `core/command_runner.py`
+
+```python
+import subprocess, traceback
+
+try:
+    result = subprocess.run(
+        command, capture_output=True, text=True, timeout=timeout
+    )
+except subprocess.TimeoutExpired:
+    return {"success": False, "stderr": "Command timed out"}
+except FileNotFoundError:
+    return {"success": False, "stderr": f"Command not found: {command[0]}"}
+finally:
+    logger.debug(f"Command attempt finished: {cmd_str}")
+```
+
+| Concept | Notes |
+|---|---|
+| `subprocess.run()` | Execute real shell commands — `pytest`, `git`, `docker` — from Python |
+| `capture_output=True` | Captures stdout and stderr as strings rather than printing to terminal |
+| `returncode` | `0` = success, non-zero = failure — a universal convention across all OS |
+| `try/except/finally` | Handles timeout, missing command, and unexpected errors independently |
+| `traceback.format_exc()` | Captures full stack trace to log file without exposing it to the user |
+
+---
+
+### Regex, Generators and Comprehensions — `core/log_analyzer.py`
+
+```python
+import re
+from collections import Counter
+
+LOG_PATTERN = re.compile(r"\b(ERROR|WARNING|INFO|DEBUG)\b")
+
+def stream_log_lines(path) -> Generator[str, None, None]:
+    with open(path) as f:
+        for line in f:
+            yield line.rstrip()
+
+error_lines = [line for line in all_lines if "ERROR" in line]
+safe_env    = {k: "****" if _is_sensitive(k) else v for k, v in pairs.items()}
+```
+
+| Concept | Notes |
+|---|---|
+| `re.compile()` | Compiles the pattern once and reuses it — more efficient inside loops |
+| Word boundaries `\b` | Prevents `INFORMATIONAL` from matching `INFO` |
+| `match.group(1)` | Extracts the captured group from a regex match |
+| `yield` generator | Produces one line at a time — constant memory use regardless of file size |
+| `collections.Counter` | Dictionary built for counting — missing keys return `0` not `KeyError` |
+| List comprehension | `[x for x in items if condition]` — filter and transform in one expression |
+| Dict comprehension | `{k: v for k, v in pairs if condition}` — build transformed dicts inline |
+
+---
+
+### System Monitoring and Concurrency — `core/system_monitor.py`
+
+```python
+import psutil, threading
+
+snap = {
+    "cpu"       : psutil.cpu_percent(interval=1),
+    "ram"       : psutil.virtual_memory().percent,
+    "disk"      : psutil.disk_usage("/").percent,
+    "processes" : len(psutil.pids()),
+}
+
+t1 = threading.Thread(target=monitor_loop, daemon=True)
+t2 = threading.Thread(target=analyze_logs)
+t1.start(); t2.start()
+t1.join();  t2.join()
+```
+
+| Concept | Notes |
+|---|---|
+| `psutil` | Reads real CPU, RAM, Disk, and process counts from the operating system |
+| `datetime.strftime()` | Formats timestamps — `%Y-%m-%d %H:%M:%S` produces `2026-03-17 10:22:01` |
+| `threading.Thread` | Runs two functions simultaneously in parallel |
+| `daemon=True` | Thread is killed automatically when the main process exits |
+| `t.join()` | Blocks until the thread finishes — prevents premature program exit |
+| Shared mutable dict | Threads write results into a shared dict the main thread reads after |
+
+---
+
+### Logging System — `utils/logger.py`
+
+```python
+import logging, sys
+
+formatter      = logging.Formatter("%(asctime)s  %(levelname)-8s  %(name)s -- %(message)s")
+file_handler   = logging.FileHandler("logs/app.log")
+stream_handler = logging.StreamHandler(sys.stdout)
+
+root_logger.addHandler(file_handler)
+root_logger.addHandler(stream_handler)
+```
+
+| Concept | Notes |
+|---|---|
+| Log levels | `DEBUG < INFO < WARNING < ERROR` — controls what gets recorded |
+| `FileHandler` | Writes log lines to a persistent file on disk |
+| `StreamHandler` | Writes log lines to the terminal at the same time |
+| `Formatter` | Controls the exact shape and content of each log line |
+| `getLogger(__name__)` | Named logger per module — shows which file produced each log line |
+
+---
+
+### File System Automation — `utils/helpers.py`
+
+```python
+import shutil, tempfile
+from pathlib import Path
+
+shutil.copy2(src, dest)
+tmp   = tempfile.mkdtemp(prefix="devops_")
+total = sum(f.stat().st_size
+            for f in Path(path).rglob("*")
+            if f.is_file())
+```
+
+| Concept | Notes |
+|---|---|
+| `Path.mkdir(parents=True, exist_ok=True)` | Creates full folder chain — no error if it already exists |
+| `shutil.copy2()` | Copies a file and preserves timestamps and permissions |
+| `tempfile.mkdtemp()` | Creates a temporary directory with a random non-clashing name |
+| `Path.rglob("*")` | Recursively walks every file in a directory tree |
+| `path.stem` / `path.suffix` | Splits `config.yaml` into `config` and `.yaml` |
+| Generator expression | Like a list comprehension but does not allocate the full list in memory |
+
+---
+
+### Environment Variables — `utils/env_manager.py`
+
+```python
+from dotenv import load_dotenv, dotenv_values
+import os
+
+load_dotenv(".env", override=False)
+value = os.environ.get("API_KEY", "default-value")
+
+safe = {
+    k: ("****" if _is_sensitive(k) else v)
+    for k, v in dotenv_values(".env").items()
+}
+```
+
+| Concept | Notes |
+|---|---|
+| `load_dotenv()` | Pushes `.env` file contents into `os.environ` at startup |
+| `override=False` | Existing environment variables take priority over `.env` defaults |
+| `dotenv_values()` | Reads `.env` as a plain dict without modifying the environment |
+| Secret redaction | Dict comprehension replaces sensitive values with `****` before display |
+
+---
+
+### CLI Interface — `cli/main.py`
+
+```python
+import argparse, sys
+
+sub       = parser.add_subparsers(dest="command")
+p_monitor = sub.add_parser("monitor")
+p_monitor.add_argument("-n", "--count", type=int)
+p_monitor.add_argument("--parallel", action="store_true")
+
+COMMANDS = {
+    "monitor"      : cmd_monitor,
+    "backup"       : cmd_backup,
+    "analyze-logs" : cmd_analyze_logs,
+}
+handler = COMMANDS.get(args.command)
+handler(args)
+```
+
+| Concept | Notes |
+|---|---|
+| `argparse` subparsers | One tool, multiple sub-commands — same pattern as `git commit`, `git push` |
+| `action="store_true"` | Boolean flag — present means `True`, absent means `False` |
+| `nargs=REMAINDER` | Captures everything after a command including its own flags |
+| Dispatch table | `{name: function}` dict replaces long `if/elif` chains — trivially extensible |
+| `sys.path.insert()` | Adds the project root to Python's module search path at runtime |
+| `KeyboardInterrupt` | Catches `Ctrl+C` for a clean exit rather than an ugly traceback |
+| `sys.exit(0/1)` | `0` = success, `1` = error — readable by calling scripts and CI systems |
+
+---
+
+### Testing — `tests/test_devops.py`
+
+```python
+import pytest
+from unittest.mock import patch, MagicMock
+
+def test_snapshot_with_mocked_psutil():
+    with patch("core.system_monitor.psutil") as mock_psutil:
+        mock_psutil.cpu_percent.return_value = 42.0
+        snap = get_snapshot()
+        assert snap["cpu"] == 42.0
+
+def test_backup_missing_file_raises(tmp_path):
+    with pytest.raises(FileNotFoundError):
+        backup_file("/nonexistent/file.yaml", str(tmp_path))
+```
+
+| Concept | Notes |
+|---|---|
+| `pytest` | Test runner — discovers and runs any function prefixed with `test_` |
+| `tmp_path` fixture | Built-in temporary directory — isolated per test, deleted automatically |
+| `@pytest.fixture` | Reusable setup function injected into tests as a parameter |
+| `pytest.raises()` | Asserts that a specific exception type is raised |
+| `patch()` | Replaces a real function with a controllable fake for one test |
+| `MagicMock` | Accepts any attribute or method call — returns configured values |
+| `assert_called_once_with()` | Verifies a mock was called with the exact expected arguments |
+
+---
+
+## Possible Extensions
+
+| Feature | Approach |
+|---|---|
+| `devops schedule` | Cron-style task runner using Python's `sched` module |
+| `devops clean` | Remove temp files and prune old backups automatically |
+| `--output json` | Machine-readable output flag for scripting and CI pipelines |
+| Remote automation | SSH command execution using `paramiko` |
+| Docker integration | `docker build`, `docker ps`, `docker logs` via subprocess |
 
 ---
 
 <div align="center">
 
-**⭐ Star this repo if it helped you learn something**
+Built by [@CaptainAni187](https://github.com/CaptainAni187)
 
 </div>
