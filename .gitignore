@@ -1,0 +1,22 @@
+# Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment — never commit this
+venv/
+
+# Secret environment variables — never commit this
+.env
+
+# Generated at runtime — no need to track
+logs/
+backups/
+temp/
+
+# Test and build artifacts
+.pytest_cache/
+.coverage
+*.egg-info/
+dist/
+build/

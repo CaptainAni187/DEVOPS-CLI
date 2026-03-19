@@ -1,0 +1,5 @@
+project_name: myapp
+log_path: logs/app.log
+backup_dir: backups
+monitor_interval: 5
+log_level: INFO
